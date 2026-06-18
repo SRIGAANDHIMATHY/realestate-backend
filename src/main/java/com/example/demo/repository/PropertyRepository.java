@@ -5,8 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PropertyRepository
-        extends JpaRepository<Property, Long> {
+public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     List<Property> findByAgentId(Long agentId);
 
@@ -15,18 +14,25 @@ public interface PropertyRepository
     List<Property> findByBhk(Integer bhk);
 
     List<Property> findByPropertyStatus(String propertyStatus);
-    
+
     List<Property> findByPropertyTypeIgnoreCase(String propertyType);
 
     List<Property> findByTransactionTypeIgnoreCase(String transactionType);
 
+    // 🆕 Present ONLY in Version 1
+    long countByListingStatus(String listingStatus);
+
+    List<Property> findByListingStatus(String listingStatus);
+
     List<Property> findByPriceBetween(
             Double minPrice,
-            Double maxPrice);
+            Double maxPrice
+    );
 
     List<Property> findByCityIgnoreCaseAndBhkAndPropertyTypeIgnoreCaseAndTransactionTypeIgnoreCase(
             String city,
             Integer bhk,
             String propertyType,
-            String transactionType);
+            String transactionType
+    );
 }

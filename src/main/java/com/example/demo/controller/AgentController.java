@@ -15,86 +15,56 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class AgentController {
 
-@Autowired
-private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-@Autowired
-private AgentProfileRepository agentProfileRepository;
+    @Autowired
+    private AgentProfileRepository agentProfileRepository;
 
-@Autowired
-private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-@PostMapping("/register")
-public String registerAgent(
-        @RequestBody AgentRegistrationRequest request
-) {
-        System.out.println("Agent registration called");
-    if (
-            userRepository
-                    .findByEmail(request.getEmail())
-                    .isPresent()
+    @PostMapping("/register")
+    public String registerAgent(
+            @RequestBody AgentRegistrationRequest request
     ) {
-        return "Email already exists";
+
+        System.out.println("Agent registration called");
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            return "Email already exists";
+        }
+
+        User user = new User();
+
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
+
+        user.setPasswordHash(
+                passwordEncoder.encode(
+                        request.getPassword()
+                )
+        );
+
+        user.setRole("AGENT");
+
+        user = userRepository.save(user);
+
+        AgentProfile profile = new AgentProfile();
+
+        profile.setAgentId(user.getUserId());
+        profile.setAgencyName(request.getAgencyName());
+        profile.setLicenseNumber(request.getLicenseNumber());
+        profile.setExperienceYears(request.getExperienceYears());
+        profile.setOfficeAddress(request.getOfficeAddress());
+
+        profile.setVerificationStatus("PENDING");
+        profile.setAverageRating(0.0);
+        profile.setTotalReviews(0);
+
+        agentProfileRepository.save(profile);
+
+        return "Agent Registration Submitted";
     }
-
-    User user = new User();
-
-    user.setFullName(
-            request.getFullName()
-    );
-
-    user.setEmail(
-            request.getEmail()
-    );
-
-    user.setPhone(
-        request.getPhone()
-);
-
-    user.setPasswordHash(
-            passwordEncoder.encode(
-                    request.getPassword()
-            )
-    );
-
-    user.setRole("AGENT");
-
-    user=userRepository.save(user);
-
-    AgentProfile profile =
-            new AgentProfile();
-
-    profile.setAgentId(
-            user.getUserId()
-    );
-
-    profile.setAgencyName(
-            request.getAgencyName()
-    );
-
-    profile.setLicenseNumber(
-            request.getLicenseNumber()
-    );
-
-    profile.setExperienceYears(
-            request.getExperienceYears()
-    );
-
-    profile.setOfficeAddress(
-            request.getOfficeAddress()
-    );
-
-    profile.setVerificationStatus(
-            "PENDING"
-    );
-
-    profile.setAverageRating(0.0);
-
-    profile.setTotalReviews(0);
-
-    agentProfileRepository.save(profile);
-
-    return "Agent Registration Submitted";
-}
-
 }

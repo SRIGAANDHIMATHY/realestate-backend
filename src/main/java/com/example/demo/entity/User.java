@@ -27,8 +27,14 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    // 🆕 Added in Version 1 only
+    @Column(name = "status")
+    private String status;
+
     public User() {
     }
+
+    // ================= GETTERS =================
 
     public Long getUserId() {
         return userId;
@@ -38,48 +44,59 @@ public class User {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
     public String getRole() {
         return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
     public String getPhone() {
         return phone;
     }
 
+    // 🆕 Added in Version 1 only
+    public String getStatus() {
+        return status;
+    }
+
+    // ================= SETTERS =================
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    // 🆕 Added in Version 1 only
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
