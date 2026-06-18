@@ -3,15 +3,12 @@ package com.example.demo.service;
 import com.example.demo.dto.ViewingRequestDto;
 import com.example.demo.entity.ViewingRequestEntity;
 import com.example.demo.repository.ViewingRequestEntityRepository;
-import com.example.demo.entity.CustomerProfile;
 import com.example.demo.entity.Property;
-import com.example.demo.repository.CustomerProfileRepository;
 import com.example.demo.repository.PropertyRepository;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ViewingRequestEntityServiceImpl implements ViewingRequestEntityService {
